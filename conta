@@ -4,20 +4,21 @@ menu = """
 [d] Depositar
 [s] Sacar
 [e] Extrato
-[s] Sair
+[g] Saque especial
+[x] Sair
 
 """
 
 #Informações bancárias iniciais
 saldo = 0
-limite = 500
+limite = 1000
 extrato = " "
 numero_de_saques = 0
-LIMITE_SAQUES = 3
+LIMITE_SAQUES = 5
 
 
 while  True:
-    opcao = input(menu)
+    opcao = input(menu).lower()
     #Código refente ao depósito    
     if opcao == 'd':
         print("Depósito")
@@ -59,9 +60,21 @@ while  True:
             print(extrato)
         print(f"\nSaldo: R$ {saldo:.2f}")
         print("==============================================")
+    #opção de saque especial para quando o número de saques pelo cliente exceder o normal
+    elif opcao == 'g':
+        print(" Saque especial ")
+        valor = float(input(" Informe o valor de Saque: "))
+        if numero_de_saques >= LIMITE_SAQUES:
+            if valor > 0:
+                saldo -= (valor + (valor * 0.10))
+                extrato += f" Saque Especial: R$ {valor:.2f}\n"
+                numero_de_saques += 1
+        else:
+            print("Opte pelo saque normal")
+
 
     #Opção de saída para o usuário
-    elif opcao =='s':
+    elif opcao =='x':
         break
        
     else:
